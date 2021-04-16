@@ -6,10 +6,13 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {addNote} from '../modules/note';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-export default class AddNote extends Component {
+class AddNote extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,10 +21,38 @@ export default class AddNote extends Component {
     };
   }
 
+  handleSubmit = () => {
+    const data = {
+      notes: [
+        {
+          title: this.state.title,
+          data: this.state.description,
+        },
+      ],
+    };
+    const addNoteCallback = (status) => {
+      if (status === true) {
+        console.log(this.props.noteStatus, this.props.userId, this.props.notes);
+        this.props.navigation.navigate('My-Notes');
+      } else {
+        Alert.alert('Alert', 'Login Failed');
+      }
+    };
+    console.log(this.props.userId);
+    this.props.addNote(data, this.props.userId, addNoteCallback);
+  };
+
   render() {
     const {title, description} = this.state;
+    console.log(this.props.userId);
+
     return (
       <SafeAreaView style={styles.safeArea}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => this.props.navigation.goBack()}>
+          <Text style={styles.backButtonText}>{'<'} Back </Text>
+        </TouchableOpacity>
         <View style={styles.mainContainer}>
           <View style={styles.header}>
             <Text style={styles.myText}>Add </Text>
@@ -42,7 +73,7 @@ export default class AddNote extends Component {
           />
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => this.handleLogin()}>
+            onPress={() => this.handleSubmit()}>
             <FontAwesome name="plus-circle" color="blue" size={20} />
             <Text style={styles.btnText}>Submit</Text>
           </TouchableOpacity>
@@ -55,6 +86,11 @@ export default class AddNote extends Component {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+  },
+  backButtonText: {
+    fontSize: 20,
+    color: '#4267B2',
+    marginLeft: 20,
   },
   mainContainer: {
     flex: 1,
@@ -78,6 +114,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.3,
     fontSize: 18,
     padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
   },
   input2: {
     borderWidth: 0.3,
@@ -85,6 +123,7 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 200,
     borderRadius: 5,
+    backgroundColor: '#fff',
   },
   btn: {
     padding: 10,
@@ -111,3 +150,18 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    notes: state.notes,
+    noteStatus: state.noteStatus,
+    userId: state.userId,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addNote: (data, id, addNoteCallback) =>
+    dispatch(addNote(data, id, addNoteCallback)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddNote);

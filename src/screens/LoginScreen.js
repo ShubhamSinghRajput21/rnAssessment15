@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {
   GoogleSignin,
@@ -68,7 +69,7 @@ class LoginScreen extends Component {
       username: this.state.email,
       password: this.state.password,
     };
-    this.props.loginUser(data);
+    this.props.loginUser(data, this.props.navigation);
   };
 
   render() {
@@ -261,12 +262,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    data: state.data,
+    id: state.id,
+    status: state.status,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser: (data) => dispatch(loginUser(data)),
+  loginUser: (data, navigation) => dispatch(loginUser(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

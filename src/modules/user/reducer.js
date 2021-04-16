@@ -1,13 +1,18 @@
-import {LOGIN} from './types';
+import {LOGIN, SIGNUP} from './types';
 const initialState = {
-  userId: null,
+  id: null,
 };
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
       return {
-        userId: action.payload,
+        id: action.payload.id,
+      };
+    case SIGNUP:
+      return {
+        ...state,
+        id: action.payload,
       };
     default:
       return state;

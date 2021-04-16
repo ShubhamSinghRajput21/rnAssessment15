@@ -4,6 +4,9 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
+import MyNotes from '../screens/MyNotes';
+import AddNote from '../screens/AddNote';
+import Notes from '../screens/Notes';
 import {AppearanceProvider, useColorScheme} from 'react-native-appearance';
 import {DefaultTheme, DarkTheme} from '@react-navigation/native';
 function HomeScreen({navigation}) {
@@ -32,12 +35,15 @@ export default function DrawerNavigator() {
   return (
     <AppearanceProvider>
       <NavigationContainer
-        theme={(this.scheme = 'dark' ? DarkTheme : DarkTheme)}>
+        theme={(this.scheme = 'dark' ? DefaultTheme : DefaultTheme)}>
         <Drawer.Navigator initialRouteName="Login-Screen">
           <Drawer.Screen name="Home" component={HomeScreen} />
           <Drawer.Screen name="Notifications" component={NotificationsScreen} />
           <Drawer.Screen name="Login-Screen" component={LoginScreen} />
           <Drawer.Screen name="SignUp" component={SignupScreen} />
+          <Drawer.Screen name="My-Notes" component={MyNotes} />
+          <Drawer.Screen name="Add-Note" component={AddNote} />
+          <Drawer.Screen name="Notes" component={Notes} />
         </Drawer.Navigator>
       </NavigationContainer>
     </AppearanceProvider>

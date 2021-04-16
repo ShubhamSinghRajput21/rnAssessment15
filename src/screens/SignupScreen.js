@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {signupUser} from '../modules/user';
@@ -35,7 +36,15 @@ class SignupScreen extends Component {
       phoneNumber: 9999373232,
       socialId: null,
     };
-    this.props.signupUser(data);
+    const signupCallback = (status) => {
+      if (status === true) {
+        // console.log(this.props.status, this.props.userId);
+        this.props.navigation.navigate('My-Notes');
+      } else {
+        Alert.alert('Alert', 'Login Failed');
+      }
+    };
+    this.props.signupUser(data, signupCallback);
   };
 
   render() {
@@ -251,7 +260,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  signupUser: (data) => dispatch(signupUser(data)),
+  signupUser: (data, callback) => dispatch(signupUser(data, callback)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen);
