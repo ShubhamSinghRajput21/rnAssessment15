@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "808751039254",
+    "project_id": "rnassessment15",
+    "storage_bucket": "rnassessment15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808751039254:android:1bb7b187309e878ca78637",
+        "android_client_info": {
+          "package_name": "com.rnassessment15"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808751039254-cg9c9rlfmetpgs77gfrg2n7gkf2dgfvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLt4SI78dgVcYKOzr0A-rL7gtAARVPekE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808751039254-cg9c9rlfmetpgs77gfrg2n7gkf2dgfvb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "808751039254-e06hfp5vi8ss59r9830qn884eng0ti94.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.rnAssessment15"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
