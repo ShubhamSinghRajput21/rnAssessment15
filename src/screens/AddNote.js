@@ -30,21 +30,12 @@ class AddNote extends Component {
         },
       ],
     };
-    const addNoteCallback = (status) => {
-      if (status === true) {
-        console.log(this.props.noteStatus, this.props.userId, this.props.notes);
-        this.props.navigation.navigate('My-Notes');
-      } else {
-        Alert.alert('Alert', 'Login Failed');
-      }
-    };
-    console.log(this.props.userId);
-    this.props.addNote(data, this.props.userId, addNoteCallback);
+    this.props.addNote(data, this.props.id, this.props.navigation);
   };
 
   render() {
     const {title, description} = this.state;
-    console.log(this.props.userId);
+    console.log(this.props.id);
 
     return (
       <SafeAreaView style={styles.safeArea}>
@@ -153,15 +144,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    notes: state.notes,
-    noteStatus: state.noteStatus,
-    userId: state.userId,
+    id: state.users.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addNote: (data, id, addNoteCallback) =>
-    dispatch(addNote(data, id, addNoteCallback)),
+  addNote: (data, id, navigation) => dispatch(addNote(data, id, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddNote);

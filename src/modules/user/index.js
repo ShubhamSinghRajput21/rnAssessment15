@@ -1,4 +1,4 @@
-import {loginUser, signupUser} from './actions';
+import {loginUser, signupUser, getLocalUser, clearUser} from './actions';
 import userReducer from './reducer';
-export {loginUser, signupUser};
+export {loginUser, signupUser, getLocalUser, clearUser};
 export default userReducer;

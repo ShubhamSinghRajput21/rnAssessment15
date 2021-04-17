@@ -7,34 +7,75 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {addNote} from '../modules/note';
+import {getNotes} from '../modules/note';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class MyNotes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      personal: 0,
+      work: 0,
+      Ideas: 0,
+      lists: 0,
+    };
+    this.props.getNotes(this.props.id, this.props.navigation);
+  }
+
+  filterNotes = () => {
+    let personal = 0;
+    let work = 0;
+    let Ideas = 0;
+    let lists = 0;
+    this.props.notes.map((item) => {
+      if (item.title === 'Personal') {
+        ++personal;
+      } else if (item.title === 'Work') {
+        ++work;
+      } else if (item.title === 'Ideas') {
+        ++Ideas;
+      } else if (item.title === 'Lists') {
+        ++lists;
+      }
+    });
+    this.setState({personal, work, Ideas, lists});
+  };
+
+  componentDidMount() {
+    this.filterNotes();
+  }
   render() {
+    const {personal, work, Ideas, lists} = this.state;
     return (
       <SafeAreaView style={styles.safeArea}>
-        <Text>{this.props.id}</Text>
         <View style={styles.mainContainer}>
           <TouchableOpacity style={styles.header}>
             <Text style={styles.myText}>My </Text>
             <Text style={styles.notesText}>Notes</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.notesContainer}>
+          <TouchableOpacity
+            style={styles.notesContainer}
+            onPress={() => this.props.navigation.navigate('Notes')}>
             <Text style={styles.notesTitle}>Personal</Text>
-            <Text style={styles.notesCount}>0</Text>
+            <Text style={styles.notesCount}>{personal}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.notesContainer}>
+          <TouchableOpacity
+            style={styles.notesContainer}
+            onPress={() => this.props.navigation.navigate('Notes')}>
             <Text style={styles.notesTitle}>Work</Text>
-            <Text style={styles.notesCount}>0</Text>
+            <Text style={styles.notesCount}>{work}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.notesContainer}>
+          <TouchableOpacity
+            style={styles.notesContainer}
+            onPress={() => this.props.navigation.navigate('Notes')}>
             <Text style={styles.notesTitle}>Ideas</Text>
-            <Text style={styles.notesCount}>0</Text>
+            <Text style={styles.notesCount}>{Ideas}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.notesContainer}>
+          <TouchableOpacity
+            style={styles.notesContainer}
+            onPress={() => this.props.navigation.navigate('Notes')}>
             <Text style={styles.notesTitle}>Lists</Text>
-            <Text style={styles.notesCount}>0</Text>
+            <Text style={styles.notesCount}>{lists}</Text>
           </TouchableOpacity>
           <View style={styles.menuContainer}>
             <TouchableOpacity>
@@ -102,10 +143,13 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = (state) => {
   return {
-    id: state.id,
+    id: state.users.id,
+    notes: state.notes.notes,
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  getNotes: (id, navigation) => dispatch(getNotes(id, navigation)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyNotes);

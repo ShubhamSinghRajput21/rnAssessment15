@@ -36,15 +36,7 @@ class SignupScreen extends Component {
       phoneNumber: 9999373232,
       socialId: null,
     };
-    const signupCallback = (status) => {
-      if (status === true) {
-        // console.log(this.props.status, this.props.userId);
-        this.props.navigation.navigate('My-Notes');
-      } else {
-        Alert.alert('Alert', 'Login Failed');
-      }
-    };
-    this.props.signupUser(data, signupCallback);
+    this.props.signupUser(data, this.props.navigation);
   };
 
   render() {
@@ -255,12 +247,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.userId,
+    id: state.users.id,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  signupUser: (data, callback) => dispatch(signupUser(data, callback)),
+  signupUser: (data, navigation) => dispatch(signupUser(data, navigation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen);

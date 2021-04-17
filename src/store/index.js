@@ -4,8 +4,8 @@ import notesReducer from '../modules/note';
 import thunk from 'redux-thunk';
 
 const reducer = combineReducers({
-  userReducer: userReducer,
-  notesReducer: notesReducer,
+  users: userReducer,
+  notes: notesReducer,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk));

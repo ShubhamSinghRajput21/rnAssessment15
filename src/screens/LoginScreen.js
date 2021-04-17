@@ -262,8 +262,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    id: state.id,
-    status: state.status,
+    id: state.users.id,
   };
 };
 

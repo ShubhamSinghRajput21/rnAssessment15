@@ -1,4 +1,4 @@
-import {addNote} from './actions';
+import {addNote, getNotes} from './actions';
 import notesReducer from './reducer';
-export {addNote};
+export {addNote, getNotes};
 export default notesReducer;
